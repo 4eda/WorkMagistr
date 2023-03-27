@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/public/css" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/Controller/ArticleController.php" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/templates/articles" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/templates/inc" charset="windows-1251" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>

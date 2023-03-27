@@ -1,0 +1,48 @@
+<form class="row g-3" method="POST" action="#">
+    <h1 class="mb-5">Заполните поля для поиска</h1>
+    <div class="col-md-6">
+        <label for="inputName" class="form-label">Имя</label>
+        <input type="text" class="form-control" id="inputName">
+    </div>
+    <div class="col-md-6">
+        <label for="inputFamily" class="form-label">Фамилия</label>
+        <input type="text" class="form-control" id="inputFamily">
+    </div>
+    <div class="col-12">
+        <label for="inputPatronymic" class="form-label">Отчество</label>
+        <input type="text" class="form-control" id="inputPatronymic" placeholder="">
+    </div>
+    <div class="col-12">
+        <label for="inputDisirt" class="form-label">Ключевое слово дисертации</label>
+        <input type="text" class="form-control" id="inputDisirt" placeholder="">
+    </div>
+    <div class="col-md-6">
+        <label for="inputCity" class="form-label">Город</label>
+        <input type="text" class="form-control" id="inputCity" placeholder="">
+    </div>
+    <div class="col-md-4">
+        <label for="inputInsti" class="form-label">Институт</label>
+        <input type="text" class="form-control" id="inputInsti" placeholder="">
+    </div>
+    <div class="col-md-2">
+        <label for="inputAge" class="form-label">Год защиты</label>
+        <input type="text" class="form-control" id="inputAge">
+    </div>
+    <div class="col-md-6">
+        <button type="submit" class="btn btn-warning">Найти</button>
+    </div>
+    <div class="col-md-6 post-right">
+        <button type="btn" id="id_btn_simple" class="btn btn-warning">Простой поиск</button>
+    </div>
+</form>
+
+{% block javascripts %}
+    <script>
+        $("#id_btn_simple").on('click' , function (e){
+            e.preventDefault()
+            $("#id_diff_sear").addClass('diff-search');
+            $('#id_lite_sear').removeClass('diff-search');
+        });
+
+    </script>
+{%  endblock %}

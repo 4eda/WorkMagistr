@@ -1,0 +1,44 @@
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block page_title ' ' %}
+{% block content_title %}Панель управления{% endblock %}
+{% block page_content %}
+    <div class="field-form_panel">
+        <div class="form-panel">
+            <div id="content-2" class="form-panel-body  collapse show">
+                <div class="row">
+                    <div class="col-md-12 col-xxl-12">
+                        <h3>Подстановочные переменные в контент сайта.</h3>
+                        <em></em>
+                        <ul>
+                        </ul>
+                    </div>
+                    <div class="flex-fill"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{#    <div class="field-form_panel">#}
+{#        <div class="form-panel">#}
+{#            <div id="content-2" class="form-panel-body collapse show">#}
+{#                <div class="row">#}
+{#                    <span class="result_action"></span>#}
+{#                    <div class="col-md-12 col-xxl-12">#}
+{#                        <button class="btn btn-secondary action-clear-cache" data-clear-cache="settings">#}
+{#                            <a href="#" class="btn-label">#}
+{#                                <i class="action-icon fa fa-trash"></i> Очистить кеш настроек#}
+{#                            </a>#}
+{#                        </button>#}
+{#                        <button class="btn btn-secondary action-clear-cache" data-clear-cache="menu_category,root_menu,menu_department">#}
+{#                            <a href="#" class="btn-label">#}
+{#                                <i class="action-icon fa fa-trash"></i> Очистить кэш верхнего меню#}
+{#                            </a>#}
+{#                        </button>#}
+{#                    </div>#}
+{#                    <div class="flex-fill"></div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{% endblock %}

@@ -1,0 +1,47 @@
+.post-right {
+    width: 12em;
+    max-width: 100%;
+    min-height: 2em;
+    margin-left: auto; /* то же, что margin-left: auto;  */
+    white-space: nowrap;
+}
+
+.diff-search{
+    display: none;
+}
+
+.window_main{
+    margin-left: 10vh;
+    margin-right: 10vh;
+    margin-top:5vh;
+    padding: 5vh; /* Поля вокруг изображения */
+    margin-bottom: 5vh; /* Отступ снизу */
+    outline: 1px solid #666; /* Параметры рамки */
+    background: #f0f0f0; /* Цвет фона */
+
+}
+.class_center_text {
+    text-align: center;
+}
+
+.news{
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.info {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.about_p {
+    font-size: 20px;
+}
+
+.round {
+    width: 205px;
+    height: 220px; /* Ширина и высота */
+    border-radius: 50%; /* Превращаем в круг */
+    background: url(../images/Edmund_Landau.jpg) no-repeat -70px 0; /* Параметры фона */
+    background-size: auto 300px; /* Высота фотографии равна высоте элемента */
+}

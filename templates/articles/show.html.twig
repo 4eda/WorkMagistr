@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} статья {{ article }} {% endblock %}
+
+{% block body %}
+<h1> {{ article }}</h1>
+
+<p> Будущуая статья </p>
+
+
+<h2>Комментарии ({{ comments|length }})</h2>
+
+<ul>
+    {% for comment in comments %}
+    <li>{{ comment }}</li>
+    {% endfor %}
+</ul>
+    <div class="like" data-item="likes">
+        <span data-item="likesCount">120</span><i class="far fa-heart text-danger"></i>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/like.js') }}"></script>
+{% endblock %}

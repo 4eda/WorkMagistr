@@ -1,0 +1,92 @@
+
+{% block body %}
+    <style>
+        body, html {
+            padding: 0;
+            margin: 0;
+        }
+        .form_div {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            font-family: Arial, SansSerif;
+            background: rgb(2,44,70);
+            background: linear-gradient(90deg, rgba(2,44,70,1) 0%, rgba(2,44,70,1) 33%, rgba(111,144,154,1) 100%);
+        }
+        .form_div form {
+            width: 30%;
+            min-width: 300px;
+            position: absolute;
+            top: 10%;
+            left: 35%;
+            background-color: #f3f8fd;
+            border: 1px solid #f3f8fd;
+            border-radius: 10px;
+            display: block;
+            box-sizing: border-box;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 10px rgb(0 0 0 / 70%);
+        }
+        .form_div form h3 {
+            color: #022c46;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        .form_div form input[type=text], .form_div form input[type=password] {
+            width: 90%;
+            height: 40px;
+            border: 1px solid #cccccc;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            padding: 0 15px 0 15px;
+        }
+        .form_div form button {
+            width: 50%;
+            height: 40px;
+            background-color: #f96e06;
+            color: #ffffff;
+            border-radius: 10px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            -webkit-transition: all .3s ease;
+            transition: all .3s ease;
+        }
+        .form_div form button:hover {
+            border: 1px solid #f96e06;
+            box-shadow: inset 0px 0px 4px 2px rgb(255 255 255);
+        }
+        .form_div form .alert-danger {
+            color: #ff0000;
+            padding-bottom: 15px;
+            font-size: 11px;
+        }
+        .remember_me {
+            text-align: left;
+            margin: 0 0 30px 5%;
+            color: #666666;
+            font-size: 13px;
+        }
+    </style>
+    <div class="form_div">
+        <form method="post">
+            <h3 class="h3 mb-3 font-weight-normal">Вход для пользователей</h3>
+
+            {% if error %}
+                <div class="alert alert-danger">Ошибка входа, пожалуйста проверьте корректность адреса электронной почты и пароля!</div>
+            {% endif %}
+            {% if app.user %}
+                <div class="mb-3">
+                    Вы вошли как {{ app.user.username }}, <a href="{{(path('app_logout')) }}">Выход</a>
+                </div>
+            {% endif %}
+
+            <input type="email" value="{{ last_username }}" name="email" placeholder="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+            <input type="password" name="password" id="inputPassword" placeholder="Пароль" class="form-control" required  autocomplete="new-password">
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+            <button class="btn btn-lg btn-primary" type="submit">Войти</button>
+        </form>
+    </div>
+{% endblock %}
