@@ -45,3 +45,24 @@
     background: url(../images/Edmund_Landau.jpg) no-repeat -70px 0; /* Параметры фона */
     background-size: auto 300px; /* Высота фотографии равна высоте элемента */
 }
+
+.text-end {
+    margin-left: auto;
+    margin-right: 0;
+}
+.menu ul {
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+.menu ul ul {
+    display: none;
+    position: absolute;
+    background-color: #212529;
+}
+.menu li:hover ul{
+    display: block;
+}
+.menu li:hover li{
+    display: block;
+}

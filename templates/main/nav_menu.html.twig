@@ -4,18 +4,28 @@
             <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
                 <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
             </a>
-
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="" class="nav-link px-2 text-white">Главная</a></li>
-                <li><a href="" class="nav-link px-2 text-white">Новости</a></li>
-                <li><a href="" class="nav-link px-2 text-white">Полезная информация</a></li>
-                <li><a href="" class="nav-link px-2 text-white">Контакты</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Для чего этот сайт?</a></li>
-            </ul>
-
+            <nav class="menu">
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    {% for key,item in menu.SubMenu %}
+                    <li>
+                       <a href="{{ item.item_link|default(false) }}"
+                          class="nav-link px-2 text-white">{{item.itemName}}</a>
+                        {% if (item.MenuSubMenu|default(false)) %}
+                        <ul class="sub_menu">
+                            {% for item_2 in item.MenuSubMenu %}
+                                <li>
+                                    <a class=" nav-link px-2 text-white" href="{{ item_2.item_link }}">{{ item_2.item_name }}</a>
+                                </li>
+                            {% endfor %}
+                       </ul>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </nav>
             <div class="text-end">
                 <button type="button" class="btn me-2"><a class="btn btn-outline-light"  href="">Вход</a></button>
-                <button type="button" class="btn btn-warning">Зарегестрироваться</button>
+                <button type="button" class="btn btn-warning">Зарегистрироваться</button>
             </div>
         </div>
     </div>

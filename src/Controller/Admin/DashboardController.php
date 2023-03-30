@@ -3,8 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Admin;
-use App\Entity\Credential;
-use App\Entity\User;
+use App\Entity\Menu;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -36,5 +35,6 @@ class DashboardController extends AbstractDashboardController
                 MenuItem::linkToCrud('Пользователи', 'fa fa-user', Admin::class),
             ]
         );
+       yield MenuItem::linkToCrud('Управление меню', 'fa fa-list', Menu::class);
     }
 }

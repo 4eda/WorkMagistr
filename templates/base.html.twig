@@ -1,6 +1,6 @@
 {% include 'main/header.html.twig' %}
-{% include 'main/nav_menu.html.twig' %}
+{% include 'main/nav_menu.html.twig' with {'menu': data.root_menu} %}
 <body>
-    {% block body %}{% endblock %}
+    {% include 'articles/homepage.html.twig' %}
 </body>
 {% include 'main/footer.html.twig' %}
