@@ -5,32 +5,18 @@
     <div class="window_main">
         <h2 class="class_center_text">Математики отечественной теории чисел</h2>
         <div class="container marketing mt-5">
-            <!-- Three columns of text below the carousel -->
             <div class="row">
                 <div class="col-12 ">
-                    <img src="{{ asset('https://bioslovhist.spbu.ru/images/persons/679/679-dKckmyvz3-.jpg') }}" class="round">
-                    <h2>Золотарёв</h2>
-                    <h3>Егор Иванович</h3>
-                    <p>Наиболее известен как автор одного из самых простых доказательств закона взаимности, см. также Лемма Золотарёва</p>
-                    <p><a class="btn btn-secondary" href="{{ path('app_artical_show' , {slug: 'landay-German'}) }}">Подробнее»</a></p>
-                </div><!-- /.col-lg-4 -->
-                <div class="col-12">
-                    <img src="{{ asset('https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Pafnuty_Lvovich_Chebyshev.jpg/1200px-Pafnuty_Lvovich_Chebyshev.jpg') }}" class="round">
-                    <h2>Чебышёв</h2>
-                    <h3>Пафнутий Львович</h3>
-                    <p>Русский математик и механик, основоположник петербургской математической школы, академик Петербургской академии наук (адъюнкт с 1853 года, экстраординарный академик с 1859 года)[3] и ещё 24 академий мира[4].</p>
-                    <p><a class="btn btn-secondary" href="#">Подробнее »</a></p>
-                </div><!-- /.col-lg-4 -->
-                <div class="col-12">
-                    <img src="{{ asset('https://www.mi-ras.ru/i/about/5.jpg') }}" class="round">
-                    <h2>Виноградов</h2>
-                    <h3>Иван Матвеевич</h3>
-                    <p>Советский математик, академик АН СССР (1929) по Отделению физико-математических наук (математика).
-                        Дважды Герой Социалистического Труда (1945, 1971). Лауреат Ленинской (1972) и Государственной премии СССР (1983) и Сталинской премии первой степени (1941)..</p>
-                    <p><a class="btn btn-secondary" href="#">Подробнее »</a></p>
-                </div><!-- /.col-lg-4 -->
-            </div><!-- /.row -->
-
+                    {% for sc in scientist %}
+                        {% if sc.image_scientist|default(false) %}
+                            <img src="{{ absolute_url(asset('asset/images/scientist/'~sc.image_scientist)) }}" class="round">
+                        {% endif %}
+                        <h2>{{ sc.surname|default(false) }}</h2>
+                        <h3>{{ sc.name|default(false) }} {{ sc.surname_2|default(false) }}</h3>
+                        <p>{{ sc.biography|default(false) }}</p>
+                        <p><a class="btn btn-secondary" href="{{ path('app_artical_show' , {slug: sc.slug ?? sc.id}) }}">Подробнее»</a></p>
+                    {% endfor %}
+                </div>
         </div>
     </div>
     <nav aria-label="Page navigation example">

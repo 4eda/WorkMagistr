@@ -1,6 +1,6 @@
 {% include 'main/header.html.twig' %}
 {% include 'main/nav_menu.html.twig' with {'menu': data.root_menu} %}
 <body>
-    {% include 'articles/homepage.html.twig' %}
+    {% include 'articles/homepage.html.twig' with {'scientist': data.Scientist} %}
 </body>
 {% include 'main/footer.html.twig' %}

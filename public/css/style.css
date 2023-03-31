@@ -42,7 +42,6 @@
     width: 205px;
     height: 220px; /* Ширина и высота */
     border-radius: 50%; /* Превращаем в круг */
-    background: url(../images/Edmund_Landau.jpg) no-repeat -70px 0; /* Параметры фона */
     background-size: auto 300px; /* Высота фотографии равна высоте элемента */
 }
 

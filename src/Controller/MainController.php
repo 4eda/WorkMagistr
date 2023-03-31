@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Scientist;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -12,6 +13,8 @@ class MainController extends BaseController
     {
         $this->data['info'] = '1';
 
+        $this->data['Scientist'] = $this->getScientist();
+
         return $this->baseRender(
             'base.html.twig',
             [
@@ -19,5 +22,11 @@ class MainController extends BaseController
                 'data' => $this->data,
             ]
         );
+    }
+
+    public function getScientist()
+    {
+        return $this->doctrine->getRepository(Scientist::class)
+            ->getActiveScientist();
     }
 }
