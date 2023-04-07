@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\InverseJoinColumn;
+use Doctrine\ORM\Mapping\JoinColumn;
 
 #[ORM\Entity(repositoryClass: ScientistRepository::class)]
 class Scientist
@@ -25,17 +27,8 @@ class Scientist
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $surname_two = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $date_brith = null;
-
-    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $date_death = null;
-
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $biography = null;
-
-    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $date_start_work = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $institut = null;
@@ -43,11 +36,10 @@ class Scientist
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $scentis_blog = null;
 
-
     #[ORM\Column]
     private ?bool $active = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255 , nullable: true)]
     private ?string $Academic_degree = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -59,11 +51,29 @@ class Scientist
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $slug = null;
 
-    #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'Mentor')]
-    private ?Mentor $mentor_sc = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $date_brith = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $date_death = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $date_start_work = null;
+
+    #[ORM\JoinTable(name: 'student_mentor')]
+    #[JoinColumn(name: "mentor_id", referencedColumnName: "id")]
+    #[InverseJoinColumn(name: "student_id", referencedColumnName: "id")]
+    #[ORM\ManyToMany(targetEntity: self::class, inversedBy: 'student')]
+    private Collection $mentor;
+
+    #[ORM\ManyToMany(targetEntity: self::class, mappedBy: 'mentor')]
+    private Collection $student;
+
 
     public function __construct()
     {
+        $this->mentor = new ArrayCollection();
+        $this->student = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -112,29 +122,6 @@ class Scientist
         return $this;
     }
 
-    public function getDateBrith(): ?\DateTimeInterface
-    {
-        return $this->date_brith;
-    }
-
-    public function setDateBrith(?\DateTimeInterface $date_brith): self
-    {
-        $this->date_brith = $date_brith;
-
-        return $this;
-    }
-
-    public function getDateDeath(): ?\DateTimeInterface
-    {
-        return $this->date_death;
-    }
-
-    public function setDateDeath(?\DateTimeInterface $date_death): self
-    {
-        $this->date_death = $date_death;
-
-        return $this;
-    }
 
     public function getBiography(): ?string
     {
@@ -148,17 +135,6 @@ class Scientist
         return $this;
     }
 
-    public function getDateStartWork(): ?\DateTimeInterface
-    {
-        return $this->date_start_work;
-    }
-
-    public function setDateStartWork(?\DateTimeInterface $date_start_work): self
-    {
-        $this->date_start_work = $date_start_work;
-
-        return $this;
-    }
 
     public function getInstitut(): ?string
     {
@@ -245,15 +221,94 @@ class Scientist
         return $this;
     }
 
-    public function getMentorSc(): ?Mentor
+
+    public function getDateBrith(): ?string
     {
-        return $this->mentor_sc;
+        return $this->date_brith;
     }
 
-    public function setMentorSc(?Mentor $mentor_sc): self
+    public function setDateBrith(?string $date_brith): self
+    {
+        $this->date_brith = $date_brith;
+
+        return $this;
+    }
+
+    public function getDateDeath(): ?string
+    {
+        return $this->date_death;
+    }
+
+    public function setDateDeath(?string $date_death): self
+    {
+        $this->date_death = $date_death;
+
+        return $this;
+    }
+
+    public function getDateStartWork(): ?string
+    {
+        return $this->date_start_work;
+    }
+
+    public function setDateStartWork(?string $date_start_work): self
+    {
+        $this->date_start_work = $date_start_work;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Scientist[]
+     */
+    public function getMentor(): Collection
+    {
+        return $this->mentor;
+    }
+
+    public function addMentor(Scientist $mentor): self
+    {
+        if (!$this->mentor->contains($mentor)) {
+            $this->mentor[] = $mentor;
+            $mentor->addStudent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMentor(Scientist $mentor): self
+    {
+        if ($this->mentor->removeElement($mentor)) {
+            $mentor->removeStudent($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Scientist[]
+     */
+    public function getStudent(): Collection
+    {
+        return $this->student;
+    }
+
+    public function addStudent(Scientist $student): self
     {
 
-        $this->mentor_sc = $mentor_sc;
+        if (!$this->student->contains($student)) {
+            $this->student[] = $student;
+            $student->addMentor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStudent(Scientist $student): self
+    {
+        if ($this->student->removeElement($student)) {
+            $student->removeMentor($this);
+        }
 
         return $this;
     }

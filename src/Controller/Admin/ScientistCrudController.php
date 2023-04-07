@@ -2,25 +2,34 @@
 
 namespace App\Controller\Admin;
 
+use App\Easyadmin\Field\CKEditorField;
 use App\Entity\Scientist;
-use App\EsayAdmin\Form\MentorType;
-use App\EsayAdmin\Form\StudentType;
-use Doctrine\ORM\EntityRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class ScientistCrudController extends AbstractCrudController
 {
+
+    private Request $request;
+
+    public function __construct(RequestStack $requestStack)
+    {
+        $this->request = $requestStack->getCurrentRequest();
+
+    }
+
     public static function getEntityFqcn(): string
     {
         return Scientist::class;
@@ -31,7 +40,8 @@ class ScientistCrudController extends AbstractCrudController
         ->setPageTitle(Crud::PAGE_INDEX, 'Список ученых')
         ->setPageTitle(Crud::PAGE_DETAIL, 'Информация об ученом')
         ->setPageTitle(Crud::PAGE_EDIT, 'Редактирование карточки ученого')
-        ->setPageTitle(Crud::PAGE_NEW, 'Добавить ученого');
+        ->setPageTitle(Crud::PAGE_NEW, 'Добавить ученого')
+        ->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig');
     }
 
     public function configureFields(string $pageName): iterable
@@ -46,9 +56,9 @@ class ScientistCrudController extends AbstractCrudController
             ->setRequired(true);
         yield TextField::new('surname_two')
             ->setLabel('Отчество');
-        yield DateField::new('date_brith')
+        yield TextField::new('date_brith')
             ->setLabel('Дата рождения');
-        yield DateField::new('date_death')
+        yield TextField::new('date_death')
             ->setLabel('Дата смерти');
         yield ImageField::new('image_scientist')
             ->hideOnIndex()
@@ -57,28 +67,25 @@ class ScientistCrudController extends AbstractCrudController
             ->setUploadedFileNamePattern(
                 fn (UploadedFile $file): string => sprintf('upload_%d_%s.%s', random_int(1, 999), $file->getFilename(), $file->guessExtension()));
         yield FormField::addPanel('Выбор наставника / ученика')->collapsible();
-//        yield CollectionField::new('mentor_sc')
-//            ->hideOnIndex()
-//            ->setLabel('Наставник')
-//            ->allowAdd()
-//            ->allowDelete()
-//            ->setEntryType(MentorType::class);
-//        yield CollectionField::new('students')
-//            ->hideOnIndex()
-//            ->setLabel('Ученик')
-//            ->allowAdd()
-//            ->allowDelete()
-//            ->setEntryIsComplex(true)
-//            ->setEntryType(StudentType::class)
-//            ->setFormTypeOptions([
-//                'by_reference' => false,
-//            ]);
+        yield AssociationField::new('mentor', 'Наставник')
+            ->hideOnIndex()
+            ->setFormTypeOptions([
+                'class' => Scientist::class,
+                'required' => false,
+            ]);
+        yield AssociationField::new('student', 'Ученик')
+            ->hideOnIndex()
+            ->setFormTypeOptions([
+                'class' => Scientist::class,
+                'required' => false,
+            ]);
         yield FormField::addPanel()->collapsible();
         yield ChoiceField::new('Academic_degree')
             ->setLabel('Ученная степень')
             ->hideOnIndex()
             ->setChoices(
                 [
+                    'Нет информации' => 'Нет информации',
                     'Кандидат наук' => 'Кандидат наук',
                     'Доктор наук' => 'Доктор наук',
                 ]
@@ -88,15 +95,21 @@ class ScientistCrudController extends AbstractCrudController
             ->hideOnIndex()
             ->setChoices(
                 [
+                    'Нет информации' => 'Нет информации',
                     'Доцент' => 'Доцент',
                     'Профессор' => 'Профессор',
                 ]
             );
 
+        yield CKEditorField::new('biography')
+            ->setLabel('Биография')
+            ->hideOnDetail()
+            ->hideOnIndex();
         yield TextField::new('biography')
             ->setLabel('Биография')
-            ->hideOnIndex();
-        yield DateField::new('date_start_work')
+            ->onlyOnDetail();
+
+        yield TextField::new('date_start_work')
             ->setLabel('Дата начала работы')
             ->hideOnIndex();
         yield TextField::new('institut')
@@ -105,6 +118,7 @@ class ScientistCrudController extends AbstractCrudController
         yield TextField::new('scentis_blog')
             ->setLabel('Ссылки на научные статьи')
             ->hideOnIndex();
+//        dd($this->request);
     }
 
     public function configureActions(Actions $actions): Actions
