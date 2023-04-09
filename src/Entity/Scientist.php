@@ -295,7 +295,6 @@ class Scientist
 
     public function addStudent(Scientist $student): self
     {
-
         if (!$this->student->contains($student)) {
             $this->student[] = $student;
             $student->addMentor($this);

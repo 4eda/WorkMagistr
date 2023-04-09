@@ -9,12 +9,14 @@
                 <div class="col-12 ">
                     {% for sc in scientist %}
                         {% if sc.image_scientist|default(false) %}
-                            <img src="{{ absolute_url(asset('asset/images/scientist/'~sc.image_scientist)) }}" class="round">
+                            <img src="{{ absolute_url('assets/images/scientist/' ~ sc.image_scientist) }}">
                         {% endif %}
                         <h2>{{ sc.surname|default(false) }}</h2>
-                        <h3>{{ sc.name|default(false) }} {{ sc.surname_2|default(false) }}</h3>
-                        <p>{{ sc.biography|default(false) }}</p>
-                        <p><a class="btn btn-secondary" href="{{ path('app_artical_show' , {slug: sc.slug ?? sc.id}) }}">Подробнее»</a></p>
+                        <h3>{{ sc.Name|default(false) }} {{ sc.surname_two|default(false) }}</h3>
+                        <div class="js__text_limit">
+                            <p>{{ sc.biography|default(false)|raw }}</p>
+                        </div>
+                        <p><a class="btn btn-secondary" href="{{ path('scientist' , {slug: sc.slug ?? sc.id}) }}">Подробнее</a></p>
                     {% endfor %}
                 </div>
         </div>
@@ -34,4 +36,14 @@
     </nav>
 
 {% endblock %}
-
+<script>
+    $(function(){
+        $(".js__text_limit").each(function() {
+            let txt = $(this).text();
+            console.log('ss => ', txt);
+            if (txt.length > 300) {
+                $(this).text(txt.substring(0, 300) + '...');
+            }
+        });
+    });
+</script>

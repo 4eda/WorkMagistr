@@ -1,6 +1,8 @@
 {% include 'main/header.html.twig' %}
 {% include 'main/nav_menu.html.twig' with {'menu': data.root_menu} %}
 <body>
+{% if app.request.pathinfo == '/' %}
     {% include 'articles/homepage.html.twig' with {'scientist': data.Scientist} %}
+{% endif %}
 </body>
 {% include 'main/footer.html.twig' %}
