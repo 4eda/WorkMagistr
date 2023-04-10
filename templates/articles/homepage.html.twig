@@ -6,17 +6,20 @@
         <h2 class="class_center_text">Математики отечественной теории чисел</h2>
         <div class="container marketing mt-5">
             <div class="row">
-                <div class="col-12 ">
+                <div class="col-12">
                     {% for sc in scientist %}
-                        {% if sc.image_scientist|default(false) %}
-                            <img src="{{ absolute_url('assets/images/scientist/' ~ sc.image_scientist) }}">
-                        {% endif %}
-                        <h2>{{ sc.surname|default(false) }}</h2>
-                        <h3>{{ sc.Name|default(false) }} {{ sc.surname_two|default(false) }}</h3>
-                        <div class="js__text_limit">
-                            <p>{{ sc.biography|default(false)|raw }}</p>
+                        <div class="item-sc">
+                            {% if sc.image_scientist|default(false) %}
+                                <img src="{{ absolute_url('assets/images/scientist/' ~ sc.image_scientist) }}">
+                            {% endif %}
+                            <h2>{{ sc.surname|default(false) }}</h2>
+                            <h3>{{ sc.Name|default(false) }} {{ sc.surname_two|default(false) }}</h3>
+                            <div class="js__text_limit">
+                                <p>{{ sc.biography|default(false)|raw }}</p>
+                            </div>
+                            <p><a class="btn btn-secondary" href="{{ path('scientist' , {slug: sc.slug ?? sc.id}) }}">Подробнее</a></p>
                         </div>
-                        <p><a class="btn btn-secondary" href="{{ path('scientist' , {slug: sc.slug ?? sc.id}) }}">Подробнее</a></p>
+                        <hr>
                     {% endfor %}
                 </div>
         </div>

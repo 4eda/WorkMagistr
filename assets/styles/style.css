@@ -1,9 +1,14 @@
 .post-right {
-    width: 12em;
+    width: 12px;
     max-width: 100%;
-    min-height: 2em;
+    min-height: 2px;
     margin-left: auto; /* то же, что margin-left: auto;  */
     white-space: nowrap;
+    text-align: right;
+}
+
+.post-right button {
+
 }
 
 .diff-search{
@@ -11,13 +16,8 @@
 }
 
 .window_main{
-    margin-left: 10vh;
-    margin-right: 10vh;
-    margin-top:5vh;
-    padding: 5vh; /* Поля вокруг изображения */
-    margin-bottom: 5vh; /* Отступ снизу */
-    outline: 1px solid #666; /* Параметры рамки */
-    background: #f0f0f0; /* Цвет фона */
+    padding: 10px;
+    margin: 5px 10px 5px;
 
 }
 .class_center_text {
@@ -64,4 +64,11 @@
 }
 .menu li:hover li{
     display: block;
+}
+
+.item-sc {
+
+}
+.item-sc p {
+    padding-top: 10px;
 }
