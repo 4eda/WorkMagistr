@@ -11,7 +11,7 @@ class StudentScientistSubscriber implements EventSubscriberInterface
     {
        $entityInstance = $event->getEntityInstance();
        if ($entityInstance instanceof Scientist) {
-           dd($entityInstance);
+
        }
     }
 

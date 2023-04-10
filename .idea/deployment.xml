@@ -37,6 +37,13 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="VPSgeneolog">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="bakalavr">
         <serverdata>
           <mappings>
@@ -52,6 +59,13 @@
         </serverdata>
       </paths>
       <paths name="mgaps">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="myProject">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />
