@@ -1,0 +1,34 @@
+{# templates/pagination.html.twig #}
+<nav aria-label="Page navigation example">
+    {% if pageCount > 1 %}
+        <ul class="pagination justify-content-center">
+            {% if current == 1 %}
+                <li class="page-item disabled"><span>«</span></li>
+            {% else %}
+                <li class="page-item"><a class="page-link" href="{{ path(route, query|merge({'page': current - 1})) }}">«</a></li>
+            {% endif %}
+
+            {% for page in pagesInRange %}
+                {% if page == current %}
+                    <li class="page-item active">
+                        <a class="page-link" href="{{ path(route, query|merge({'page': page})) }}">
+                            {{ page }}
+                            <span class="sr-only"></span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ path(route, query|merge({'page': page})) }}">{{ page }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+            {% if current == pageCount %}
+                <li class="page-item is-disabled"><span>»</span></li>
+            {% else %}
+                <li class="page-item"><a class="page-link" href="{{ path(route, query|merge({'page': current + 1})) }}">
+                        »</a>
+                </li>
+            {% endif %}
+        </ul>
+    {% endif %}
+</nav>

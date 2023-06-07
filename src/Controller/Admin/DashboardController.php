@@ -3,8 +3,13 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Admin;
+use App\Entity\Blog;
+use App\Entity\Event;
+use App\Entity\InstWork;
 use App\Entity\Menu;
+use App\Entity\News;
 use App\Entity\Scientist;
+use App\Entity\ScientistDirt;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -38,5 +43,12 @@ class DashboardController extends AbstractDashboardController
         );
        yield MenuItem::linkToCrud('Управление меню', 'fa fa-list', Menu::class);
        yield MenuItem::linkToCrud('Список ученых', 'fa fa-newspaper-o', Scientist::class);
+       yield MenuItem::linkToCrud('Статьи', 'fas fa-scroll', Blog::class);
+       yield MenuItem::linkToCrud('Новости', 'fa fa-newspaper-o', News::class);
+//       yield MenuItem::linkToCrud('Запуск python скрипта', "fas fa-question", Scientist::class);
+       yield MenuItem::linkToCrud('Не обработанные данные', "fas fa-question", ScientistDirt::class);
+//       yield MenuItem::linkToCrud('Работы', "fas fa-info-square", ::class);
+       yield MenuItem::linkToCrud('Институты', "fa fa-university", InstWork::class);
+       yield MenuItem::linkToCrud('События', "fas fa-microphone", Event::class);
     }
 }

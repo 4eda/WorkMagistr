@@ -2,34 +2,49 @@
 
 {% block title %}Hello ScientistController!{% endblock %}
 
-{% block body %}
-    {{ dump(data) }}
-    <div class="container">
+{% block content  %}
+    <div class="container main_sc">
         <div class="row">
             <div class="col-md-6">
-                <h2>{{ data.scientist.name|default(false) }} {{ data.scientist.surname|default(false) }} {{ data.scientist.surname_two|default(false) }}</h2>
-                <h4>Biography:</h4>
-                <p>{{ data.scientist.biography|default(false) }}</p>
-                <h4>Institute:</h4>
+                <h2>{{ data.scientist.surname|default(false) }}, {{ data.scientist.Name|default(false) }} {{ data.scientist.surname_two|default(false) }}</h2>
+                <h4>Биография:</h4>
+                <p>{{ data.scientist.biography|default(false)|raw }}</p>
+                <h4>Место работы:</h4>
                 <p>{{ data.scientist.institut|default(false) }}</p>
-                <h4>Scientific blog:</h4>
-                <p>{{ data.scientist.scentis_blog|default(false) }}</p>
-                <h4>Academic degree:</h4>
-                <p>{{ data.scientist.academic_degree|default(false) }}</p>
-                <h4>Academic title:</h4>
+                <h4>Научные работы:</h4>
+                <p><a href="{{ data.scientist.scentis_blog|default(false) }}">Ссылка</a></p>
+                <h4>Ученная степень:</h4>
+                <p>{{ data.scientist.Academic_degree|default(false) }}</p>
+                <h4>Ученное звание:</h4>
                 <p>{{data.scientist. academic_title|default(false) }}</p>
-                <h4>Mentor:</h4>
-                <p>{{ data.scientist.mentor|default(false) }}</p>
-                <h4>Student:</h4>
-                <p>{{ data.scientist.student|default(false) }}</p>
+                {% if data.scientist.mentor|default(false) %}
+                    <h4>Наставники:</h4>
+                        {% for val in  data.scientist.mentor %}
+                            <p><a href="{{ path('scientist' , {slug: val.slug ?? val.id}) }}">{{ val.surname|default(false) }}, {{ val.Name|default(false) }}
+                            {{ val.surname_two|default(false) }}</a></p>
+                        {% endfor %}
+                    <br>
+                    <p><a href="#">Построить дерево?</a></p>
+                {% endif %}
+                {% if data.scientist.student|default(false) %}
+                    <h4>Ученики:</h4>
+                    {% for val in  data.scientist.student %}
+                        <p><a href="{{ path('scientist' , {slug: val.slug ?? val.id}) }}">{{ val.surname|default(false) }}, {{ val.Name|default(false) }}
+                                {{ val.surname_two|default(false) }}</a></p>
+                    {% endfor %}
+                    <br>
+                    <p><a style="text-decoration: none; color: black; font-size: 28px" href="{{ path('Tree', {slug: data.scientist.id}) }}">Построить дерево?</a></p>
+                {% endif %}
             </div>
             <div class="col-md-6">
-                <img src="{{ data.scientist.image_scientist|default(false) }}" alt="scientist image">
-                <h4>Additional information:</h4>
+                {% if (data.scientist.image_scientist|default(false)) %}
+                    <img src="/build/images/scientist/{{ data.scientist.image_scientist }}" alt="scientist image">
+                {% endif %}
+                <h4>Дополнительная информация:</h4>
                 <ul>
-                    <li><strong>Date of birth:</strong> {{ data.scientist.date_brith|default(false) }}</li>
-                    <li><strong>Date of death:</strong> {{ data.scientist.date_death|default(false) }}</li>
-                    <li><strong>Date of start work:</strong> {{ data.scientist.date_start_work|default(false) }}</li>
+                    <li><strong>Дата рождения:</strong> {{ data.scientist.date_brith|default(false) }}</li>
+                    <li><strong>Дата смерти:</strong> {{ data.scientist.date_death|default(false) }}</li>
+                    <li><strong>Дата начала работы:</strong> {{ data.scientist.date_start_work|default(false) }}</li>
                 </ul>
             </div>
         </div>

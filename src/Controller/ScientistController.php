@@ -15,7 +15,7 @@ class ScientistController extends BaseController
         if (is_numeric($slug))
         {
             $this->data['scientist'] =  (array) $this->doctrine->
-            getRepository(Scientist::class)->find($slug);
+            getRepository(Scientist::class)->getScientist($slug);
         }
 
         return $this->baseRender('scientist/index.html.twig', [

@@ -25,6 +25,8 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "cytoscape": "^3.25.0",
+        "d3": "^7.8.5",
         "file-loader": "^6.0.0"
     }
 }

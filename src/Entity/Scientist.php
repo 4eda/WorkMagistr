@@ -69,11 +69,31 @@ class Scientist
     #[ORM\ManyToMany(targetEntity: self::class, mappedBy: 'mentor')]
     private Collection $student;
 
+    #[ORM\ManyToMany(targetEntity: News::class, mappedBy: 'Scientist')]
+    private Collection $news;
+
+    #[ORM\ManyToMany(targetEntity: Category::class, mappedBy: 'Scientist')]
+    private Collection $categories;
+
+    #[ORM\ManyToMany(targetEntity: Blog::class, mappedBy: 'Scientist')]
+    private Collection $blogs;
+
+    #[ORM\ManyToMany(targetEntity: InstWork::class, mappedBy: 'Scientist')]
+    private Collection $instWorks;
+
+    #[ORM\ManyToMany(targetEntity: Event::class, mappedBy: 'member_this_bd')]
+    private Collection $events;
+
 
     public function __construct()
     {
         $this->mentor = new ArrayCollection();
         $this->student = new ArrayCollection();
+        $this->news = new ArrayCollection();
+        $this->categories = new ArrayCollection();
+        $this->blogs = new ArrayCollection();
+        $this->instWorks = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -307,6 +327,141 @@ class Scientist
     {
         if ($this->student->removeElement($student)) {
             $student->removeMentor($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, News>
+     */
+    public function getNews(): Collection
+    {
+        return $this->news;
+    }
+
+    public function addNews(News $news): self
+    {
+        if (!$this->news->contains($news)) {
+            $this->news->add($news);
+            $news->addScientist($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNews(News $news): self
+    {
+        if ($this->news->removeElement($news)) {
+            $news->removeScientist($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Category>
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Category $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories->add($category);
+            $category->addScienti($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): self
+    {
+        if ($this->categories->removeElement($category)) {
+            $category->removeScienti($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Blog>
+     */
+    public function getBlogs(): Collection
+    {
+        return $this->blogs;
+    }
+
+    public function addBlog(Blog $blog): self
+    {
+        if (!$this->blogs->contains($blog)) {
+            $this->blogs->add($blog);
+            $blog->addScientist($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBlog(Blog $blog): self
+    {
+        if ($this->blogs->removeElement($blog)) {
+            $blog->removeScientist($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, InstWork>
+     */
+    public function getInstWorks(): Collection
+    {
+        return $this->instWorks;
+    }
+
+    public function addInstWork(InstWork $instWork): self
+    {
+        if (!$this->instWorks->contains($instWork)) {
+            $this->instWorks->add($instWork);
+            $instWork->addScientist($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInstWork(InstWork $instWork): self
+    {
+        if ($this->instWorks->removeElement($instWork)) {
+            $instWork->removeScientist($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Event>
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Event $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events->add($event);
+            $event->addMemberThisBd($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        if ($this->events->removeElement($event)) {
+            $event->removeMemberThisBd($this);
         }
 
         return $this;

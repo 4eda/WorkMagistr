@@ -1,21 +1,22 @@
 <?php
-
 namespace App\Controller;
 
 use App\Entity\Scientist;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class MainController extends BaseController
+class SearchController extends BaseController
 {
-    #[Route('/', name: 'index')]
-    public function index(Request $request,PaginatorInterface $paginator): Response
+    #[Route('/search/{name}', name: 'search')]
+    public function index($name, Request $request,PaginatorInterface $paginator)
     {
-        $this->data['info'] = '1';
-
-        $Scientist = $this->getScientist();
+        if(empty($name)) return [];
+        $Scientist = $this->doctrine
+            ->getRepository(Scientist::class)
+            ->searchScientists($name);
         $this->data['Scientist'] = $paginator->paginate(
             $Scientist,
             $request->query->getInt('page', 1), // текущая страница (по умолчанию 1)
@@ -25,15 +26,10 @@ class MainController extends BaseController
         return $this->baseRender(
             'articles/homepage.html.twig',
             [
-                'controller' => 'main',
+                'controller' => 'Search',
                 'scientist' => $this->data['Scientist'],
             ]
         );
     }
 
-    public function getScientist()
-    {
-        return $this->doctrine->getRepository(Scientist::class)
-            ->getActiveScientist();
-    }
 }

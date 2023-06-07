@@ -47,4 +47,30 @@ class ScientistRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getArrayResult() ?? [];
     }
+
+    public function getScientist($id): array
+    {
+        $qb = $this->createQueryBuilder('Scientist');
+        $qb->select('Scientist');
+        $qb->where('Scientist.id = :id');
+        $qb->leftJoin('Scientist.mentor', 'mentor');
+        $qb->addSelect('mentor');
+        $qb->leftJoin('Scientist.student', 'student');
+        $qb->addSelect('student');
+        $qb->setParameters(['id' => $id]);
+        return $qb->getQuery()->getArrayResult()[0] ?? [];
+    }
+    public function searchScientists($name)
+    {
+        $qb = $this->createQueryBuilder('s');
+        $qb->select('s');
+        $qb->where($qb->expr()->orX(
+            $qb->expr()->like('s.Name', ':name'),
+            $qb->expr()->like('s.surname', ':name'),
+            $qb->expr()->like('s.surname_two', ':name')
+        ))
+            ->setParameter('name', '%'.$name.'%');
+
+        return $qb->getQuery()->getArrayResult();
+    }
 }
