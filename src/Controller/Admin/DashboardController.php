@@ -4,6 +4,8 @@ namespace App\Controller\Admin;
 
 use App\Entity\Admin;
 use App\Entity\Blog;
+use App\Entity\Category;
+use App\Entity\CategoryBlog;
 use App\Entity\Event;
 use App\Entity\InstWork;
 use App\Entity\Menu;
@@ -45,6 +47,12 @@ class DashboardController extends AbstractDashboardController
        yield MenuItem::linkToCrud('Список ученых', 'fa fa-newspaper-o', Scientist::class);
        yield MenuItem::linkToCrud('Статьи', 'fas fa-scroll', Blog::class);
        yield MenuItem::linkToCrud('Новости', 'fa fa-newspaper-o', News::class);
+       yield MenuItem::subMenu('Категории', 'fa fa-window-restore')->setSubItems(
+           [
+                MenuItem::linkToCrud('Категории ученых', 'fa fa-list', Category::class),
+                MenuItem::linkToCrud('Категории статей', 'fa fa-list', CategoryBlog::class),
+           ]
+       );
 //       yield MenuItem::linkToCrud('Запуск python скрипта', "fas fa-question", Scientist::class);
        yield MenuItem::linkToCrud('Не обработанные данные', "fas fa-question", ScientistDirt::class);
 //       yield MenuItem::linkToCrud('Работы', "fas fa-info-square", ::class);

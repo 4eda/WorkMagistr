@@ -39,6 +39,32 @@ class BlogRepository extends ServiceEntityRepository
         }
     }
 
+    public  function getBlog(): array
+    {
+        $qb = $this->createQueryBuilder('blog');
+        $qb->select('blog');
+        $qb->where('blog.active = true');
+        $qb->leftJoin('blog.categoryBlogs', 'category');
+        $qb->addselect('category');
+
+        return $qb->getQuery()->getArrayResult() ?? [];
+    }
+
+    public function getIdBlog($slug): array
+    {
+        $qb = $this->createQueryBuilder('blog');
+        $qb->select('blog');
+        $qb->where('blog.active = true');
+        $qb->andWhere('blog.id = :id');
+        $qb->leftJoin('blog.categoryBlogs', 'category');
+        $qb->addselect('category');
+        $qb->leftJoin('blog.scientist', 'sci');
+        $qb->addSelect('sci');
+        $qb->setParameter('id', $slug);
+
+        return $qb->getQuery()->getArrayResult()[0] ?? [];
+    }
+
 //    /**
 //     * @return Blog[] Returns an array of Blog objects
 //     */

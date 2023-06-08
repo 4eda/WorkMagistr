@@ -40,6 +40,11 @@ class News
         $this->author = new ArrayCollection();
     }
 
+    public function __toString(): string
+    {
+        return $this->Name;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

@@ -8,7 +8,9 @@
             <div class="col-md-6">
                 <h2>{{ data.scientist.surname|default(false) }}, {{ data.scientist.Name|default(false) }} {{ data.scientist.surname_two|default(false) }}</h2>
                 <h4>Биография:</h4>
-                <p>{{ data.scientist.biography|default(false)|raw }}</p>
+                <div class="prokrutka">
+                    <p>{{ data.scientist.biography|default(false)|raw }}</p>
+                </div>
                 <h4>Место работы:</h4>
                 <p>{{ data.scientist.institut|default(false) }}</p>
                 <h4>Научные работы:</h4>

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BlogController!{% endblock %}
+
+{% block content %}
+    <section class="mp-news-section">
+        <div class="container">
+            <div class="mp-news-box">
+                <div class="mp-news-grid">
+                    {% for blog in data.page %}
+                        {% if loop.index0 == 0 %}
+                            <div class="mp-news-col is-main">
+                                <a class="mp-news-item" href="{{ path('path_blog', {slug: blog.id}) }}">
+                                    <div class="mp-news-item__date">{{ blog.date|date("m/d/Y") }}</div>
+                                    <div class="mp-news-item__name">{{ blog.name }}</div>
+{#                                    <div class="mp-news-item__preview">{{ news.news_brief|raw }}#}
+{#                                        <span class="read-more">Читать далее</span>#}
+{#                                    </div>#}
+                                </a>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    <div class="mp-news-col is-other">
+                        {% for blog in data.page %}
+                            {% if loop.index0 > 0 %}
+                                <a class="mp-news-item">
+                                    <div class="mp-news-item__date">{{ blog.date }}</div>
+                                    <div class="mp-news-item__name">{{ blog.name }}</div>
+                                    <span class="read-more">Читать далее</span>
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="mp-news-more">
+                    <a class="regular-btn cyan-btn" href="{{ path('app_blog') }}">Все статьи</a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

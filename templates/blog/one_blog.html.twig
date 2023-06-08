@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BlogController!{% endblock %}
+
+{% block content %}
+    <div class="container">
+            <div class="row">
+            <h1>{{  data.page.name}}</h1>
+            {% if data.page.scientist|default(false) %}
+                <p>Ученые принимавшие участие в написание статьи:
+                    <ul>
+                        {% for sci in data.page.scientist %}
+                            <li>
+                                <a href="{{ path('scientist', {slug: sci.id}) }}">
+                                    {{ sci.surname }} {{ sci.Name }} {{ sci.surname_two }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+            {% endif %}
+            <p>Дата: {{ data.page.date|date('d/m/Y') }}</p>
+            <article>
+        {#        <img src="news-image.jpg" alt="Изображение новости"> <!-- Если есть изображение -->#}
+                <p>{{ data.page.content|raw }}</p>
+            </article>
+        </div>
+    </div>
+{% endblock %}

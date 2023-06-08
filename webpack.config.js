@@ -59,6 +59,10 @@ Encore
         from: './assets/images/scientist',
         to: 'images/scientist/[name].[ext]',
     })
+    .copyFiles({
+        from: './assets/images/event',
+        to: 'images/event/[name].[ext]',
+    })
 
     // enables Sass/SCSS support
     .enableSassLoader()

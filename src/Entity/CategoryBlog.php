@@ -18,7 +18,7 @@ class CategoryBlog
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\ManyToMany(targetEntity: blog::class, inversedBy: 'categoryBlogs')]
+    #[ORM\ManyToMany(targetEntity: Blog::class, inversedBy: 'categoryBlogs')]
     private Collection $blog_id;
 
     #[ORM\Column]
@@ -28,6 +28,12 @@ class CategoryBlog
     {
         $this->blog_id = new ArrayCollection();
     }
+
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
 
     public function getId(): ?int
     {
